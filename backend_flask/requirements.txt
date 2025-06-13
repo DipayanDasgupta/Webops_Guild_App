@@ -1,0 +1,15 @@
+Flask
+Flask-Bcrypt
+Flask-Login
+python-dotenv
+Pillow
+transformers
+torch
+scikit-learn
+openai
+google-generativeai
+requests
+spacy
+numpy
+pandas
+tqdm
