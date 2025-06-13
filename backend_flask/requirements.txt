@@ -13,3 +13,4 @@ spacy
 numpy
 pandas
 tqdm
+gunicorn
