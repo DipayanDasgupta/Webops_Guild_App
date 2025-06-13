@@ -162,7 +162,7 @@ def upload_image_route():
 
     filename = secure_filename(f"{uuid.uuid4()}_{file.filename}")
     # --- Corrected Code ---
-filepath = os.path.join(current_app.root_path, app.config['UPLOAD_FOLDER'], filename)
+    filepath = os.path.join(current_app.root_path, app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
     
     prompt_text = request.form.get('prompt', '')
