@@ -1,1 +1,44 @@
 # Python
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+backend_flask/venv/
+
+# Secrets - VERY IMPORTANT
+.env
+backend_flask/.env
+
+# Database file
+backend_flask/shopsmarter.sqlite3
+*.sqlite
+*.sqlite3
+*.db
+
+# User Uploads (temporary)
+uploads/
+backend_flask/uploads/
+
+# Raw Downloaded Kaggle Dataset
+kaggle_dataset_raw/
+
+# spaCy models downloaded locally (if not in venv's site-packages)
+# en_core_web_sm*/
+
+# IDE / Editor specific
+.vscode/
+.idea/
+*.DS_Store
+
+# Log files
+*.log
+logs/
+
+# Optional: Precomputed embeddings if you cache them
+# backend_flask/precomputed_ai_catalog.pkl

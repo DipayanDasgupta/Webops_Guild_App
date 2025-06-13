@@ -1,0 +1,554 @@
+/* --- Base & Typography --- */
+:root {
+  /* Light Theme (Default) */
+  --bg-primary: #f4f7f9;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #e2e8f0; 
+  --bg-accent: #f8fafc; 
+
+  --text-primary: #3d4852;
+  --text-secondary: #718096;
+  --text-accent: #2d3748; 
+  --text-inverted: #ffffff; 
+
+  --border-primary: #e8eef3;
+  --border-secondary: #cbd5e0; 
+  --border-accent: #3490dc; 
+
+  --link-color: #3490dc;
+  --link-hover-color: #2779bd;
+
+  --success-color: #38a169;
+  --success-hover-color: #2f855a;
+  --danger-color: #e53e3e;
+  --danger-hover-color: #c53030;
+  --danger-bg-hover: rgba(229, 62, 62, 0.1);
+
+  --shadow-color-light: rgba(0, 0, 0, 0.06);
+  --shadow-color-medium: rgba(45, 55, 72, 0.1);
+
+  --button-bg: #3490dc; /* Primary button background */
+  --button-text: #ffffff; /* Primary button text */
+  --button-hover-bg: #2779bd; /* Primary button hover background */
+
+  --button-secondary-bg: var(--bg-tertiary);
+  --button-secondary-text: var(--text-accent);
+  --button-secondary-hover-bg: var(--border-secondary);
+
+
+  --header-bg: #2d3748;
+  --header-text: #ffffff;
+  
+  --cart-badge-bg: #38a169;
+  --cart-badge-text: #ffffff;
+
+  /* For focus rings on inputs, consistent with prompt input */
+  --link-color-transparent: rgba(52, 144, 220, 0.15);
+  --link-color-transparent-dark: rgba(99, 179, 237, 0.25);
+}
+
+.dark-mode {
+  /* Dark Theme Overrides */
+  --bg-primary: #1a202c;        
+  --bg-secondary: #2d3748;      
+  --bg-tertiary: #4a5568;       
+  --bg-accent: #2d3748; /* Can be same as secondary in dark mode */
+
+  --text-primary: #e2e8f0;      
+  --text-secondary: #a0aec0;    
+  --text-accent: #f7fafc;       
+  --text-inverted: #1a202c;     
+
+  --border-primary: #4a5568;    
+  --border-secondary: #718096;  
+  --border-accent: #63b3ed;     
+
+  --link-color: #63b3ed;
+  --link-hover-color: #90cdf4;
+
+  --success-color: #48bb78;
+  --success-hover-color: #38a169;
+  --danger-color: #f56565;  
+  --danger-hover-color: #e53e3e;
+  --danger-bg-hover: rgba(245, 101, 101, 0.15);
+
+  --shadow-color-light: rgba(0, 0, 0, 0.4);
+  --shadow-color-medium: rgba(0, 0, 0, 0.5);
+
+  --button-bg: #63b3ed; /* Primary button background */
+  --button-text: #1a202c; /* Primary button text */
+  --button-hover-bg: #4299e1; /* Primary button hover background */
+
+  --button-secondary-bg: var(--bg-tertiary);
+  --button-secondary-text: var(--text-accent);
+  --button-secondary-hover-bg: var(--border-secondary);
+
+  --header-bg: #1A202C; 
+  --header-text: #E2E8F0;
+
+  --cart-badge-bg: #48bb78; 
+  --cart-badge-text: #1a202c; 
+}
+
+html { overflow-y: scroll; }
+body { 
+  font-family: 'Nunito Sans', 'Segoe UI', Helvetica, Arial, sans-serif; 
+  margin: 0; 
+  background-color: var(--bg-primary); 
+  color: var(--text-primary); 
+  line-height: 1.65; 
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.app-container { 
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh; 
+  max-width: 1400px; 
+  margin: 0 auto; 
+  padding: 25px 30px; 
+  box-sizing: border-box; 
+}
+
+/* --- Header --- */
+header { 
+  background-color: var(--header-bg); 
+  color: var(--header-text); 
+  padding: 15px 30px; /* Reduced padding a bit */
+  text-align: center; 
+  border-radius: 10px; 
+  margin-bottom: 35px; 
+  box-shadow: 0 5px 15px var(--shadow-color-medium); 
+  display: flex; 
+  justify-content: space-between; /* Changed for auth section */
+  align-items: center; 
+  position: relative; 
+}
+header h1 { 
+  margin: 0; 
+  font-size: 1.8em; /* Slightly reduced */
+  font-weight: 700; 
+  display: flex; 
+  align-items: center; 
+  /* justify-content: center; /* No longer needed if space-between on header */
+}
+header h1 .icon-placeholder { /* If using span for icons */
+  margin-right: 12px; 
+  font-size: 1.3em; /* Adjust if needed */
+}
+
+.user-auth-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* margin-left: auto; /* This was in main.js, handled by justify-content: space-between on header now */
+}
+.user-auth-section .welcome-user {
+    color: var(--header-text);
+    font-weight: 500;
+    font-size: 0.9em;
+}
+.btn-header-action {
+    padding: 7px 14px;
+    font-size: 0.85em;
+    background-color: var(--button-secondary-bg); /* Or a specific header button style */
+    color: var(--button-secondary-text);
+    border: 1px solid var(--border-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.btn-header-action:hover {
+    background-color: var(--button-secondary-hover-bg);
+    border-color: var(--text-secondary);
+}
+.dark-mode .btn-header-action {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-primary);
+}
+.dark-mode .btn-header-action:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--text-accent);
+}
+
+
+.dark-mode-toggle {
+  /* position: absolute; */ /* No longer absolute if header is space-between */
+  /* right: 20px; */
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
+  background-color: var(--bg-secondary); /* Overrides if dark mode button is general button */
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+.dark-mode-toggle:hover {
+  background-color: var(--bg-tertiary);
+}
+
+/* --- Main Content Layout --- */
+.main-content { display: flex; flex-direction: column; gap: 35px; flex-grow: 1; }
+.top-interaction-area { display: flex; flex-direction: row; gap: 35px; align-items: stretch; }
+.top-interaction-area > .section { flex: 1; display: flex; flex-direction: column; }
+
+/* --- Sections --- */
+.section { 
+  background-color: var(--bg-secondary); 
+  padding: 30px 35px; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 12px var(--shadow-color-light); 
+}
+.section h2 { 
+  margin-top: 0; 
+  margin-bottom: 25px; 
+  color: var(--link-color); 
+  border-bottom: 1px solid var(--border-primary); 
+  padding-bottom: 15px; 
+  font-size: 1.45em; 
+  font-weight: 600; 
+  display: flex; 
+  align-items: center; 
+}
+.section h2 .icon-placeholder { 
+  margin-right: 12px; 
+  /* width: 24px; height: 24px; opacity: 0.85; color: var(--link-color); */ /* Handled by general icon styles if any */
+}
+
+/* --- Image Upload & Preview --- */
+.image-upload-area input[type='file'] { padding: 15px; border: 2px dashed var(--border-secondary); border-radius: 8px; display: block; width: 100%; box-sizing: border-box; margin-bottom: 20px; background-color: var(--bg-accent); cursor: pointer; transition: border-color 0.2s, background-color 0.2s; color: var(--text-secondary); }
+.image-upload-area input[type='file']:hover { border-color: var(--link-color); background-color: var(--bg-tertiary); }
+.image-preview-container { flex-grow: 1; display: flex; align-items: center; justify-content: center; background-color: var(--bg-accent); border-radius: 8px; padding: 15px; min-height: 280px; border: 1px solid var(--border-primary); }
+.image-preview { max-width: 100%; max-height: 350px; object-fit: contain; border-radius: 6px; }
+
+/* --- Chat Input --- */
+.chat-input-area { display: flex; flex-direction: column; }
+.chat-input-area form { display: flex; flex-direction: column; gap: 15px; margin-bottom: auto; }
+.prompt-input-wrapper { position: relative; display: flex; width: 100%; }
+.prompt-input { padding: 14px 18px; border: 1px solid var(--border-primary); border-radius: 8px; font-size: 1em; background-color: var(--bg-secondary); color: var(--text-primary); flex-grow: 1; width: 100%; box-sizing: border-box; padding-right: 40px; }
+.prompt-input::placeholder { color: var(--text-secondary); } 
+.prompt-input:focus { outline: none; border-color: var(--link-color); box-shadow: 0 0 0 3.5px var(--link-color-transparent); }
+.dark-mode .prompt-input:focus { box-shadow: 0 0 0 3.5px var(--link-color-transparent-dark); }
+.prompt-clear-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center; line-height: 1; }
+.prompt-clear-btn:hover { color: var(--text-primary); background-color: transparent !important; box-shadow: none !important; transform: translateY(-50%) scale(1.1); }
+.prompt-clear-btn .icon-placeholder-small { font-size: 1.2em; }
+.chat-input-area form button[type="submit"] { align-self: flex-end; padding: 12px 25px; } /* This is the Send button */
+.prompt-examples { margin-top: 20px; font-size: 0.85em; color: var(--text-secondary); border-top: 1px solid var(--border-primary); padding-top: 15px; }
+.prompt-examples strong { display: block; margin-bottom: 8px; color: var(--text-primary); }
+.prompt-examples ul { list-style: none; padding-left: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.prompt-examples li { background-color: var(--bg-tertiary); color: var(--text-accent); padding: 6px 10px; border-radius: 15px; cursor: pointer; transition: background-color 0.2s, color 0.2s; font-size: 0.9em;}
+.prompt-examples li:hover { background-color: var(--link-color); color: var(--button-text); }
+
+/* --- General Buttons (Primary by default) --- */
+button, .btn-primary { 
+  background-color: var(--button-bg); 
+  color: var(--button-text); 
+  border: none; 
+  padding: 11px 22px; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  font-size: 1em; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 10px; 
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease, box-shadow 0.2s ease-in-out;
+  font-weight: 600; 
+  transform: translateY(0px); 
+  line-height: 1.2; /* Ensure text is vertically centered well */
+}
+button:hover:not(.btn-icon-subtle):not(.prompt-clear-btn):not(.dark-mode-toggle):not(.modal-image-nav-btn):not(.product-modal-close-button):not(.product-modal-actions .wishlist-btn):not(.btn-header-action),
+.btn-primary:hover:not(.btn-icon-subtle):not(.prompt-clear-btn):not(.dark-mode-toggle):not(.modal-image-nav-btn):not(.product-modal-close-button):not(.product-modal-actions .wishlist-btn) { 
+  background-color: var(--button-hover-bg); 
+  box-shadow: 0 2px 5px var(--link-color-transparent); 
+  transform: translateY(-1px); 
+}
+/* Button with .btn-primary class for explicit primary styling */
+
+.btn-secondary {
+    background-color: var(--button-secondary-bg);
+    color: var(--button-secondary-text);
+    border: 1px solid var(--border-secondary);
+}
+.btn-secondary:hover {
+    background-color: var(--button-secondary-hover-bg);
+    border-color: var(--text-secondary);
+}
+.dark-mode .btn-secondary {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-primary);
+}
+.dark-mode .btn-secondary:hover {
+    background-color: var(--bg-secondary); /* A bit darker than tertiary */
+    border-color: var(--text-accent);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    color: var(--button-text); /* Typically white */
+}
+.btn-success:hover {
+    background-color: var(--success-hover-color);
+}
+
+.btn-outline { /* Example for outline buttons, like modal wishlist */
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-secondary);
+}
+.btn-outline:hover {
+    background-color: var(--bg-tertiary);
+    border-color: var(--text-secondary);
+    color: var(--text-accent);
+}
+.dark-mode .btn-outline {
+    color: var(--text-primary);
+    border-color: var(--border-primary);
+}
+.dark-mode .btn-outline:hover {
+    background-color: var(--bg-secondary); /* Darker than tertiary */
+    border-color: var(--text-accent);
+}
+
+
+.btn-icon-subtle { background: none !important; border: none !important; padding: 8px !important; color: var(--text-secondary); border-radius: 50%; box-shadow: none !important; transform: translateY(0px); transition: color 0.2s, background-color 0.2s, transform 0.1s ease; }
+.btn-icon-subtle:hover { color: var(--text-accent); background-color: var(--bg-tertiary) !important; transform: translateY(0px) scale(1.1); box-shadow: none !important; }
+.btn-icon-subtle.danger { color: var(--danger-color); }
+.btn-icon-subtle.danger:hover { color: var(--danger-hover-color) !important; background-color: var(--danger-bg-hover) !important; }
+
+.dark-mode button:hover:not(.btn-icon-subtle):not(.prompt-clear-btn):not(.dark-mode-toggle):not(.modal-image-nav-btn):not(.product-modal-close-button):not(.product-modal-actions .wishlist-btn):not(.btn-header-action) { 
+  box-shadow: 0 2px 5px var(--link-color-transparent-dark);
+}
+.dark-mode .btn-icon-subtle:hover { box-shadow: none !important; }
+.dark-mode .btn-icon-subtle.danger:hover { background-color: var(--danger-bg-hover) !important; }
+
+button:active { transform: translateY(0px); box-shadow: 0 1px 2px var(--link-color-transparent-light, rgba(52, 144, 220, 0.15)); }
+.dark-mode button:active { box-shadow: 0 1px 2px var(--link-color-transparent-light, rgba(99, 179, 237, 0.15)); }
+button:disabled { background-color: var(--bg-tertiary); color: var(--text-secondary); cursor: not-allowed; box-shadow: none; transform: translateY(0); opacity: 0.7; }
+button .icon-placeholder-small { font-size: 1em; /* Adjust if needed */ }
+
+
+/* --- Product Recommendations, Cards, Loading --- */
+/* ... (Your existing styles for .recommendation-grid, .product-card, etc. remain here) ... */
+.recommendation-grid { display: flex; flex-direction: row; overflow-x: auto; overflow-y: hidden; gap: 25px; padding-top: 5px; padding-bottom: 25px; margin-left: -35px; margin-right: -35px; padding-left: 35px; padding-right: 35px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--border-secondary) var(--border-primary); }
+.recommendation-grid::-webkit-scrollbar { height: 10px; }
+.recommendation-grid::-webkit-scrollbar-track { background: var(--border-primary); border-radius: 10px; }
+.recommendation-grid::-webkit-scrollbar-thumb { background: var(--border-secondary); border-radius: 10px; border: 2px solid var(--border-primary); }
+.recommendation-grid::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); } 
+.product-card { position: relative; min-width: 250px; max-width: 250px; flex-shrink: 0; border: 1px solid var(--border-primary); border-radius: 10px; background-color: var(--bg-secondary); box-shadow: 0 3px 8px var(--shadow-color-light); transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; display: flex; flex-direction: column; overflow: hidden; }
+.product-card:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 6px 16px var(--shadow-color-medium); }
+.product-card-image-wrapper { position: relative; width: 100%; height: 240px; cursor: pointer; } 
+.product-card img { width: 100%; height: 100%; object-fit: cover; background-color: var(--bg-primary); }
+.product-card .product-info { padding: 18px; flex-grow: 1; display: flex; flex-direction: column; text-align: left; cursor: pointer; }
+.product-card .product-name { font-weight: 600; color: var(--text-accent); font-size: 1em; margin-bottom: 8px; line-height: 1.4; min-height: 2.8em; } /* min-height for 2 lines */
+.product-card .product-price { font-weight: 700; color: var(--success-color); font-size: 1.2em; margin-top: auto; margin-bottom: 10px; }
+.product-card .product-type { font-size: 0.78em; color: var(--text-accent); background-color: var(--bg-tertiary); padding: 5px 10px; border-radius: 15px; display: inline-block; align-self: flex-start; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+.product-card .recommendation-reason { font-size: 0.75em; color: var(--text-secondary); margin-top: 8px; font-style: italic; }
+.card-actions-overlay { position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 8px; z-index: 3; }
+.card-wishlist-btn { background: var(--bg-secondary-semi-transparent, rgba(255,255,255,0.8)); border: none; border-radius: 50%; width: 38px; height: 38px; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 1px 4px var(--shadow-color-light); transition: background-color 0.2s, transform 0.1s ease; transform: translateY(0px); }
+.card-wishlist-btn:hover { transform: translateY(0px) scale(1.1); background-color: var(--bg-secondary); } 
+.card-wishlist-btn.active { /* Style for active wishlist button */ color: var(--danger-color); /* Example: make heart red */ }
+.dark-mode .card-wishlist-btn { background: var(--bg-primary-semi-transparent, rgba(26, 32, 44, 0.8));}
+.dark-mode .card-wishlist-btn:hover { background: var(--bg-tertiary);}
+.card-cart-status-badge { background-color: var(--cart-badge-bg); color: var(--cart-badge-text); border: none; border-radius: 50%; width: 38px; height: 38px; padding: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7em; font-weight: bold; cursor: default; box-shadow: 0 1px 4px var(--shadow-color-light);}
+.product-name-wrapper { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.product-name-wrapper .product-name { flex-grow: 1; }
+.why-recommendation-icon { color: var(--link-color); cursor: help; flex-shrink: 0; margin-top: 2px; transform: translateY(0px); transition: transform 0.1s ease; }
+.why-recommendation-icon:hover { transform: scale(1.15); }
+.loading-text { text-align: center; padding: 50px 20px; font-size: 1.2em; color: var(--text-secondary); background-color: var(--bg-secondary); border-radius: 10px; box-shadow: 0 3px 8px var(--shadow-color-light); display: flex; align-items: center; justify-content: center; gap: 15px; }
+.no-recommendations-text { text-align: center; padding: 50px 20px; font-size: 1.2em; color: var(--text-secondary); background-color: var(--bg-secondary); border-radius: 10px; box-shadow: 0 3px 8px var(--shadow-color-light); }
+.spinner { border: 4px solid var(--bg-tertiary); width: 24px; height: 24px; border-radius: 50%; border-left-color: var(--link-color); animation: spin 1s ease infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.dark-mode .spinner { border: 4px solid var(--bg-tertiary); border-left-color: var(--link-color); }
+
+/* --- Wishlist & Cart Display --- */
+.wishlist-display, .checkout-area { /* Common styles if any */ }
+.wishlist-display.empty p, .checkout-area #emptyCartMessage p { color: var(--text-secondary); font-style: italic; text-align: center; padding: 20px 0;}
+.wishlist-items-list, .cart-items-list { list-style: none; padding: 10px; margin: 0 0 20px 0; max-height: 300px; overflow-y: auto; border: 1px solid var(--border-primary); border-radius: 8px; background-color: var(--bg-accent); }
+.wishlist-items-list::-webkit-scrollbar, .cart-items-list::-webkit-scrollbar { width: 8px; height: 8px; }
+.wishlist-items-list::-webkit-scrollbar-track, .cart-items-list::-webkit-scrollbar-track { background: var(--bg-accent); border-radius: 10px; } 
+.wishlist-items-list::-webkit-scrollbar-thumb, .cart-items-list::-webkit-scrollbar-thumb { background: var(--border-secondary); border-radius: 10px; border: 2px solid var(--bg-accent); }
+.wishlist-items-list::-webkit-scrollbar-thumb:hover, .cart-items-list::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+.wishlist-item, .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-primary); }
+.wishlist-items-list > .wishlist-item:first-child, .cart-items-list > .cart-item:first-child { padding-top: 2px; }
+.wishlist-items-list > .wishlist-item:last-child, .cart-items-list > .cart-item:last-child { border-bottom: none; padding-bottom: 2px;}
+.wishlist-item-image, .cart-item-image { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right: 15px; background-color: var(--bg-primary); cursor: pointer; }
+.wishlist-item-details, .cart-item-details { flex-grow: 1; cursor: pointer; }
+.wishlist-item-name, .cart-item-name { display: block; font-weight: 600; color: var(--text-accent); font-size: 1em; margin-bottom: 3px; }
+.wishlist-item-price, .cart-item-price { display: block; color: var(--text-secondary); font-size: 0.9em; }
+/* .wishlist-item-remove-btn, .cart-item-remove-btn are styled by .btn-icon-subtle.danger */
+
+.checkout-area #cartSummaryText { font-size: 1.1em; margin-bottom: 15px; color: var(--text-primary); }
+.checkout-area #cartSummaryText strong { color: var(--link-color); }
+.checkout-total { font-size: 1.2em; font-weight: bold; margin-top: 15px; margin-bottom: 25px; text-align: right; color: var(--success-color); }
+.proceed-to-checkout-btn { width: 100%; padding: 14px 25px; font-size: 1.1em; } /* Uses .btn-success class for color */
+
+
+/* --- Product Modal --- */
+.product-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(45, 55, 72, 0.75); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; backdrop-filter: blur(5px); }
+.dark-mode .product-modal-overlay { background-color: rgba(26, 32, 44, 0.85); }
+.product-modal { background-color: var(--bg-secondary); padding: 30px 35px; border-radius: 12px; box-shadow: 0 10px 30px var(--shadow-color-medium); max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; position: relative; }
+.product-modal-content { display: flex; flex-direction: row; gap: 30px; }
+.product-modal-image-section { flex: 1.2; }
+.product-modal-image-section .main-image { width: 100%; max-height: 400px; object-fit: contain; border-radius: 8px; border: 1px solid var(--border-primary); margin-bottom: 15px; }
+.modal-image-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background:rgba(0,0,0,0.35); border: none; border-radius: 50%; padding: 8px; cursor: pointer; color: var(--text-inverted); z-index: 1; transition: background-color 0.2s, transform 0.1s ease; }
+.dark-mode .modal-image-nav-btn { background: rgba(255,255,255,0.2); color: var(--text-primary); }
+.modal-image-nav-btn.prev { left: 10px; } .modal-image-nav-btn.next { right: 10px; }
+.modal-image-nav-btn:hover { background:rgba(0,0,0,0.5); transform: translateY(-50%) scale(1.05); }
+.dark-mode .modal-image-nav-btn:hover { background:rgba(255,255,255,0.3); }
+.product-modal-thumbnails { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+.product-modal-thumbnails img { width: 70px; height: 70px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; opacity: 0.7; transition: opacity 0.2s, border-color 0.2s; }
+.product-modal-thumbnails img:hover, .product-modal-thumbnails img.active-thumbnail { border-color: var(--link-color); opacity: 1; }
+.product-modal-details-section { flex: 1; display: flex; flex-direction: column; }
+.product-modal-details-section h3 { font-size: 1.8em; margin-top: 0; margin-bottom: 10px; color: var(--text-accent); }
+.product-modal-details-section .price { font-size: 1.5em; color: var(--success-color); font-weight: 700; margin-bottom: 15px; }
+.product-modal-details-section .description { font-size: 0.95em; color: var(--text-primary); margin-bottom: 20px; line-height: 1.7; }
+.product-modal-details-section .attributes { margin-top: 15px; }
+.product-modal-details-section .attributes p { margin: 5px 0; font-size: 0.9em; }
+.product-modal-details-section .attributes strong { color: var(--text-accent); }
+.product-modal-details-section .recommendation-reason { font-size: 0.9em; color: var(--text-accent); background: var(--bg-accent); padding: 10px 15px; border-radius: 6px; margin-top: 15px; border-left: 3px solid var(--link-color); }
+.detailed-reasons-modal ul { list-style-type: disc; padding-left: 20px; margin-top: 5px; margin-bottom: 10px; font-size: 0.9em;}
+.detailed-reasons-modal li { margin-bottom: 4px;}
+.product-modal-actions { margin-top: auto; display: flex; gap: 15px; padding-top: 20px; border-top: 1px solid var(--border-primary); }
+.product-modal-actions .wishlist-btn { /* Now uses .btn-outline for consistency */ }
+.product-modal-actions .wishlist-btn.active { /* Style for active wishlist button in modal */ background-color: var(--danger-bg-hover); border-color: var(--danger-color); color: var(--danger-color); }
+.product-modal-actions .add-to-cart-btn { flex-grow: 1; /* Uses .btn-success class */ }
+.product-modal-actions .remove-from-cart-btn { flex-grow: 1; background-color: var(--danger-color); color: var(--button-text); } /* Specific style for remove from cart */
+.product-modal-actions .remove-from-cart-btn:hover { background-color: var(--danger-hover-color); }
+.product-modal-close-button { position: absolute; top: 15px; right: 15px; font-size: 1.8em; line-height: 1; /* Styled by .btn-icon-subtle */ }
+
+/* --- Auth Modals --- */
+.modal-overlay.auth-modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(45, 55, 72, 0.65); /* Slightly less blur for auth */
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1050; /* Higher than product modal if they can overlap */
+    padding: 20px;
+    backdrop-filter: blur(3px);
+}
+.auth-modal-content {
+    background-color: var(--bg-secondary);
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px var(--shadow-color-medium);
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    text-align: left; /* Align form content left */
+}
+.auth-modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: var(--link-color);
+    text-align: center;
+    font-size: 1.6em;
+}
+.auth-modal-content .close-modal-btn { /* Re-style if needed, or use .btn-icon-subtle */
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 1.6em; /* Make it a bit smaller */
+    cursor: pointer;
+    color: var(--text-secondary);
+    border: none; background: none; padding: 5px; line-height: 1;
+}
+.auth-modal-content .close-modal-btn:hover { color: var(--text-primary); }
+.auth-form .form-group { margin-bottom: 18px; }
+.auth-form label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.9em; color: var(--text-secondary); }
+.auth-form .form-control {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border-secondary);
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: var(--bg-accent); /* Slightly different from main bg */
+    color: var(--text-primary);
+    font-size: 1em;
+}
+.auth-form .form-control:focus {
+    border-color: var(--link-color);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--link-color-transparent);
+}
+.dark-mode .auth-form .form-control:focus {
+    box-shadow: 0 0 0 3px var(--link-color-transparent-dark);
+}
+.auth-form .btn-submit { /* Uses primary button style by default or add .btn-primary */
+    width: 100%;
+    padding: 12px;
+    font-size: 1.05em;
+    margin-top: 10px;
+}
+.auth-switch-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+.auth-switch-text a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+.auth-switch-text a:hover { text-decoration: underline; }
+
+/* AI Insights Box */
+.ai-insight-box {
+    white-space: pre-wrap; 
+    background-color: var(--bg-accent); 
+    padding: 12px 18px; 
+    border-radius: 8px; 
+    border: 1px solid var(--border-primary);
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: var(--text-primary);
+    max-height: 200px; /* Limit height and make scrollable if too long */
+    overflow-y: auto;
+}
+.dark-mode .ai-insight-box {
+    background-color: var(--bg-secondary); /* Slightly distinct in dark mode */
+    border-color: var(--border-secondary);
+    color: var(--text-secondary);
+}
+
+
+/* --- Footer --- */
+footer { text-align: center; padding: 30px 20px; margin-top: 40px; background-color: var(--bg-tertiary); border-top: 1px solid var(--border-secondary); font-size: 0.92em; color: var(--text-secondary); }
+
+/* --- Media Queries --- */
+@media (max-width: 900px) { .top-interaction-area { flex-direction: column; } }
+@media (max-width: 768px) { 
+    header { flex-direction: column; gap: 10px; padding: 15px 20px; }
+    .user-auth-section { margin-left: 0; margin-top: 10px; }
+    .dark-mode-toggle { position: static; transform: none; margin-top: 10px;}
+    .product-modal-content { flex-direction: column; } 
+    .product-modal-image-section .main-image { max-height: 300px; } 
+}
+@media (max-width: 600px) {
+  .app-container { padding: 20px 15px; } .section { padding: 20px 25px; } header h1 { font-size: 1.6em; }
+  .section h2 { font-size: 1.3em; } .product-card { min-width: calc(50% - 10px); max-width: calc(50% - 10px); } /* If you want 2 columns on small screens */
+  .product-card img { height: 190px; }
+  .recommendation-grid { gap: 15px; margin-left: -25px; margin-right: -25px; padding-left: 25px; padding-right: 25px; flex-wrap: wrap; justify-content: space-between;}
+  .auth-modal-content { padding: 25px 20px; }
+}
+@media (max-width: 400px) { /* Single column for product cards on very small screens */
+    .product-card { min-width: 100%; max-width: 100%; }
+    .recommendation-grid { justify-content: center; }
+}
+
+/* Generic icon placeholder styles (replace with actual SVGs or icon font for production) */
+.icon-placeholder, .icon-placeholder-small, .icon-placeholder-large {
+    display: inline-block;
+    /* Add some basic styling if they are just text */
+    /* font-family: 'Segoe UI Symbol', Symbola, 'ہری رام', sans-serif; /* For better emoji rendering */
+    font-style: normal;
+    vertical-align: middle;
+}
+.icon-placeholder { font-size: 1.2em; }
+.icon-placeholder-small { font-size: 1em; }
+.icon-placeholder-large { font-size: 1.3em; }

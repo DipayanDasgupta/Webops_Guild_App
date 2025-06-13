@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopSmarter AI Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Consider adding a favicon -->
+    <!-- <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}"> -->
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1><span class="icon-placeholder">🛍️</span> ShopSmarter AI</h1>
+            <div id="userAuthSection" class="user-auth-section">
+                <!-- JS will populate: Login/Signup buttons or Welcome User/Logout -->
+                <button id="showLoginModalButton" class="btn-header-action">Login</button>
+                <button id="showSignupModalButton" class="btn-header-action">Sign Up</button>
+            </div>
+            <button id="darkModeToggle" class="dark-mode-toggle" title="Toggle Dark Mode">
+                <span id="darkModeIcon" class="icon-placeholder">🌙</span>
+            </button>
+        </header>
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal-overlay auth-modal-overlay" style="display:none;">
+            <div class="modal-content auth-modal-content">
+                <span class="close-modal-btn" id="closeLoginModalBtn">×</span>
+                <h2>Login</h2>
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginUsername">Username:</label>
+                        <input type="text" id="loginUsername" name="username" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password:</label>
+                        <input type="password" id="loginPassword" name="password" required class="form-control">
+                    </div>
+                    <button type="submit" class="btn-submit">Login</button>
+                    <p class="auth-switch-text">Don't have an account? <a href="#" id="switchToSignupBtn">Sign Up</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div id="signupModal" class="modal-overlay auth-modal-overlay" style="display:none;">
+            <div class="modal-content auth-modal-content">
+                <span class="close-modal-btn" id="closeSignupModalBtn">×</span>
+                <h2>Sign Up</h2>
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="signupUsername">Username:</label>
+                        <input type="text" id="signupUsername" name="username" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email (Optional):</label>
+                        <input type="email" id="signupEmail" name="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password:</label>
+                        <input type="password" id="signupPassword" name="password" required class="form-control">
+                    </div>
+                    <button type="submit" class="btn-submit">Sign Up</button>
+                    <p class="auth-switch-text">Already have an account? <a href="#" id="switchToLoginBtn">Login</a></p>
+                </form>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div class="top-interaction-area">
+                <section class="section image-upload-area" id="imageUploadSection">
+                    <h2><span class="icon-placeholder">🖼️</span> Upload an Image</h2>
+                    <input type="file" id="imageFile" name="imageFile" accept="image/*">
+                    <div class="image-preview-container">
+                        <img id="imagePreview" src="#" alt="Image Preview" style="display:none;" class="image-preview"/>
+                        <span id="imagePreviewPlaceholder">Preview your image here</span>
+                    </div>
+                </section>
+
+                <section class="section chat-input-area" id="chatInputSection">
+                    <h2><span class="icon-placeholder">💬</span> Refine with a Prompt</h2>
+                    <form id="promptForm">
+                        <div class="prompt-input-wrapper">
+                            <input type="text" id="promptInput" class="prompt-input" placeholder="e.g., 'red summer dress', 'leather boots'">
+                            <button type="button" id="clearPromptBtn" class="prompt-clear-btn" style="display:none;" title="Clear prompt">
+                                <span class="icon-placeholder-small">❌</span>
+                            </button>
+                        </div>
+                        <button type="submit" id="sendPromptBtn" class="btn-primary"><span class="icon-placeholder-small">➤</span> Send</button>
+                    </form>
+                    <div class="prompt-examples">
+                        <strong>Try:</strong>
+                        <ul id="examplePromptsList">
+                            <!-- JS will populate this -->
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <section class="section" id="aiInsightsSection" style="display:none;">
+                <h2><span class="icon-placeholder">💡</span> AI Insights</h2>
+                <div>
+                    <strong>Image Description (OpenAI Vision):</strong>
+                    <p id="openaiDescriptionText" class="ai-insight-box">N/A</p>
+                </div>
+                <div style="margin-top: 15px;">
+                    <strong>Search Refinement (Gemini):</strong>
+                    <pre id="geminiRefinementText" class="ai-insight-box">N/A</pre> <!-- Use <pre> for better formatting of Gemini's JSON-like output -->
+                </div>
+            </section>
+
+            <section class="section" id="recommendationsSection">
+                <h2><span class="icon-placeholder">✨</span> Recommendations</h2>
+                <div id="loadingText" class="loading-text" style="display:none;">Searching for perfect matches... <div class="spinner"></div></div>
+                <div id="noRecommendationsText" class="no-recommendations-text" style="display:none;">
+                    <p>No recommendations found. Try a different image or prompt!</p>
+                </div>
+                <div id="initialMessage" class="no-recommendations-text" style="display:block;"> <!-- Show initially -->
+                     <p>Upload an image or use a text prompt to get personalized AI recommendations.</p>
+                </div>
+                <div id="recommendationGrid" class="recommendation-grid">
+                    <!-- Product cards will be injected here by JS -->
+                </div>
+            </section>
+            
+            <section class="section wishlist-display" id="wishlistSection">
+                <h2><span class="icon-placeholder">❤️</span> Your Wishlist (<span id="wishlistCount">0</span>)</h2>
+                <div id="emptyWishlistMessage" style="display:block;">
+                    <p>Your wishlist is empty. Add items by clicking the heart icon on products!</p>
+                </div>
+                <ul id="wishlistItemsList" class="wishlist-items-list"></ul>
+            </section>
+
+            <section class="section checkout-area" id="checkoutSection">
+                <h2><span class="icon-placeholder">💳</span> Shopping Cart (<span id="cartItemCountHeader">0</span>)</h2>
+                <div id="emptyCartMessage">
+                    <p class="checkout-summary">Your cart is empty. Add some products!</p>
+                </div>
+                <div id="cartContents" style="display:none;">
+                    <p id="cartSummaryText" class="checkout-summary">You have <strong><span id="cartItemCount">0</span></strong> item(s) in your cart.</p>
+                    <ul id="cartItemsList" class="cart-items-list"></ul>
+                    <p id="cartTotal" class="checkout-total"><strong>Total: $<span id="cartTotalPrice">0.00</span></strong></p>
+                    <button id="proceedToCheckoutBtn" class="proceed-to-checkout-btn btn-success" disabled>
+                        <span class="icon-placeholder-small">🛒</span> Proceed to Checkout
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <div id="productModalOverlay" class="product-modal-overlay" style="display:none;">
+            <div id="productModal" class="product-modal">
+                <button id="productModalCloseBtn" class="product-modal-close-button btn-icon-subtle" aria-label="Close product details">
+                    <span class="icon-placeholder-large">❌</span>
+                </button>
+                <div class="product-modal-content">
+                    <div class="product-modal-image-section">
+                        <img id="modalMainImage" src="#" alt="Product Image" class="main-image">
+                        <div id="modalThumbnails" class="product-modal-thumbnails"></div>
+                    </div>
+                    <div class="product-modal-details-section">
+                        <h3 id="modalProductName">Product Name</h3>
+                        <p id="modalProductPrice" class="price">$0.00</p>
+                        <p id="modalProductDescription" class="description">Description here...</p>
+                        <div id="modalProductAttributes" class="attributes"></div>
+                        <div id="modalRecommendationReason" class="recommendation-reason" style="display:none;">
+                            <strong>Why Recommended:</strong> <span id="modalReasonText"></span>
+                            <ul id="modalDetailedReasonsList" class="detailed-reasons-modal"></ul>
+                        </div>
+                        <div class="product-modal-actions">
+                            <button id="modalToggleWishlistBtn" class="wishlist-btn btn-outline">
+                                <span class="icon-placeholder-small">❤️</span> <span id="modalWishlistBtnText">Add to Wishlist</span>
+                            </button>
+                            <button id="modalToggleCartBtn" class="add-to-cart-btn btn-success">
+                                <span class="icon-placeholder-small">➕</span> <span id="modalCartBtnText">Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© <span id="currentYear"></span> ShopSmarter AI. All rights reserved. Demo for Hackathon.</p>
+        </footer>
+    </div>
+
+    <script>
+        const initialRecommendationsFromServer = {{ initial_recommendations | safe if initial_recommendations else [] }};
+    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
